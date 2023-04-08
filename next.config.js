@@ -6,9 +6,10 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        pathname: "/image/**",
-        hostname: "api.lorem.space",
+        port: "1337",
+        protocol: "http",
+        hostname: "localhost",
+        pathname: "/uploads/**",
       },
     ],
   },

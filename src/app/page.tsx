@@ -1,35 +1,26 @@
-import { Categories } from "@/types";
-import Image from "next/image";
-import Link from "next/link";
+import { Carousel, Header, Featured, Footer } from "@/components";
+import type { Carousels, HeaderCategories, Featureds } from "@/types";
 
 async function Home() {
-    const categories: Categories = await fetch(
-        "https://api.escuelajs.co/api/v1/categories"
+    const categories: HeaderCategories = await fetch(
+        `${process.env.NEXT_PUBLIC_STRAPI_API}/categories/header`
+    ).then((res) => res.json());
+    const carousels: Carousels = await fetch(
+        `${process.env.NEXT_PUBLIC_STRAPI_API}/carousels?populate=*`
+    ).then((res) => res.json());
+    const featureds: Featureds = await fetch(
+        `${process.env.NEXT_PUBLIC_STRAPI_API}/featured-categories?populate[subCategories][populate][0]=image&populate=bgImage`
     ).then((res) => res.json());
     return (
         <>
-            <header className="flex min-h-[112px] w-full items-center justify-center bg-white">
-                <div className="sticky flex w-full max-w-7xl justify-between">
-                    {categories.map((category) => (
-                        <div key={category.id} className="py-3 pl-[22px] pr-2">
-                            <Link
-                                href={`/category/${category.name.toLowerCase()}`}
-                            >
-                                <div className="relative mb-1 h-16 w-16">
-                                    <Image
-                                        fill
-                                        src={category.image}
-                                        alt={category.name}
-                                    />
-                                </div>
-                                <p className="text-center text-sm text-[#212121]">
-                                    {category.name}
-                                </p>
-                            </Link>
-                        </div>
-                    ))}
-                </div>
-            </header>
+            <Header categories={categories} />
+            <main className="mx-auto w-full min-w-[978px] max-w-[1680px] space-y-[10px] bg-[#F1F3F6] p-2">
+                <Carousel carousels={carousels} />
+                {featureds.data.map((featured) => (
+                    <Featured key={featured.id} featured={featured} />
+                ))}
+            </main>
+            <Footer />
         </>
     );
 }

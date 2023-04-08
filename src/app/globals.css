@@ -8,4 +8,14 @@
   .nav-link {
     @apply mx-5 flex max-w-[150px] flex-[0_0_auto] font-semibold text-white;
   }
+  .left-btn,
+  .right-btn {
+    @apply shadow-flipkart-nav_btn absolute top-[calc(50%-52px)] z-10 flex h-[104px] w-12 items-center justify-around bg-white;
+  }
+  .left-btn {
+    @apply left-0 rounded-br-[4px] rounded-tr-[4px];
+  }
+  .right-btn {
+    @apply right-0 rounded-bl-[4px] rounded-tl-[4px];
+  }
 }
