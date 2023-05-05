@@ -1,0 +1,32 @@
+{
+  "kind": "collectionType",
+  "collectionName": "featured_categories",
+  "info": {
+    "singularName": "featured-category",
+    "pluralName": "featured-categories",
+    "displayName": "Featured Category"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "bgImage": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    },
+    "subCategories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::sub-category.sub-category"
+    }
+  }
+}
